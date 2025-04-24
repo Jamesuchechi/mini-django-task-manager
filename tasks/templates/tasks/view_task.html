@@ -1,0 +1,15 @@
+<!-- tasks/templates/tasks/view_task.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View Task</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+  <div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+    <h1 class="text-2xl font-bold mb-4">Task #{{ id }}</h1>
+    <p class="text-lg mb-6">{{ task }}</p>
+    <a href="/" class="text-blue-600 hover:underline">← Back to Task List</a>
+  </div>
+</body>
+</html>

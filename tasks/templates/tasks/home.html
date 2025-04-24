@@ -1,0 +1,54 @@
+<!-- tasks/templates/tasks/home.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Tasks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 p-8">
+    <div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
+      <h1 class="text-2xl font-bold mb-4">My Task Manager</h1>
+
+      <!-- Task Form -->
+      <form method="POST" class="mb-4" action="{% url 'add_task' %}">
+        {% csrf_token %}
+        <input
+          type="text"
+          name="task"
+          placeholder="Enter a task..."
+          required
+          class="w-full px-3 py-2 border rounded mb-2"
+        />
+        <button
+          type="submit"
+          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Add Task
+        </button>
+      </form>
+
+      <!-- Task List -->
+      <ul class="list-disc pl-5">
+        {% for task in tasks %}
+        <li class="mb-2 flex justify-between items-center">
+            <a
+            <a href="{% url 'view_task' id=task.id %}" class="text-blue-600 hover:underline">
+                {{ task.title }}
+              </a>
+          <div class="flex gap-2 items-center">
+            <a href="{% url 'edit_task' id=task.id %}" class="text-yellow-500 hover:underline">
+                Edit
+              </a>
+          <!-- Delete Form -->
+          <form action="{% url 'delete_task' id=task.id %}" method="POST" onsubmit="return confirm('Delete this task?');">
+            {% csrf_token %}
+            <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
+          </form>
+        </li>
+        {% empty %}
+        <li class="text-gray-500">No tasks added yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
